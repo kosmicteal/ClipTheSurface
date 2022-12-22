@@ -5,21 +5,21 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#7F333333" />
-            <Setter Property="Foreground" Value="#7FB2B2B2" />
+            <Setter Property="Background" Value="#FF333333" />
+            <Setter Property="Foreground" Value="#FFB2B2B2" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border CornerRadius="8" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#7FB1B1B1">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#FFB1B1B1">
                             <Grid>
                                 <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                             </Grid>
                         </Border>
- 
-                        
+
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
