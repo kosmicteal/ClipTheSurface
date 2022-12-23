@@ -18,7 +18,6 @@ namespace ClipTheSurface
         [DllImport("User32.dll")]
         static extern int SetForegroundWindow(IntPtr point);
 
-        public bool OriginalTBHidden;
         public void genericToogle_Click(VirtualKeyCode key, Button keyButton)
         {
             var simulator = new InputSimulator();
@@ -74,17 +73,38 @@ namespace ClipTheSurface
             {
                 simulator.Keyboard.KeyUp(vky);
             }
-            OriginalTBHidden = IsTaskBarAutoHidden();
+
+            int currentTBValue = IsTaskBarAutoHidden();
+            //Get initial value of system if it's not saved
+            if (Properties.Settings.Default.InitialTBHide == 0)
+            {
+
+                Properties.Settings.Default.InitialTBHide = currentTBValue;
+
+            }
+            else if (Properties.Settings.Default.InitialTBHide == 2 && currentTBValue == 1)
+            {
+                //reset AutoHide value if saved one and current are different
+                AutoHideTaskBar(false);
+            }
         }
 
-        private bool IsTaskBarAutoHidden()
+        private int IsTaskBarAutoHidden()
         {
-            return Math.Abs(SystemParameters.PrimaryScreenHeight - SystemParameters.WorkArea.Height) > 0;
+            if (Math.Abs(SystemParameters.PrimaryScreenHeight - SystemParameters.WorkArea.Height) > 0)
+            {
+                return 2; //false
+            }
+            else
+            {
+                return 1; //true
+            }
+
         }
 
-        public Boolean fullFocusMode(Boolean ffmode, Button keyButton)
+        public bool fullFocusMode(bool ffmode, Button keyButton, Label ffmWatchLabel)
         {
-            Boolean changeModeTo = false;
+            bool changeModeTo = false;
             Process p = Process.GetProcessesByName("CLIPStudioPaint").FirstOrDefault();
             var simulator = new InputSimulator();
 
@@ -98,13 +118,12 @@ namespace ClipTheSurface
                     simulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LSHIFT, VirtualKeyCode.TAB);
                     simulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LSHIFT, VirtualKeyCode.TAB);
 
-                    if (!OriginalTBHidden) { 
-                    ProcessCallVoid("powershell.exe", "-command \"&{$p='HKCU:SOFTWARE\\Microsoft\\Windows\\" +
-                        "CurrentVersion\\Explorer\\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=3;" +
-                        "&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}\"");
+                    if (Properties.Settings.Default.InitialTBHide == 2)
+                    {
+                        AutoHideTaskBar(true);
                     }
 
-
+                    ffmWatchLabel.Visibility = Visibility.Visible;
                     keyButton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF536280");
                     changeModeTo = true;
                 }
@@ -112,12 +131,12 @@ namespace ClipTheSurface
                 {
                     simulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LSHIFT, VirtualKeyCode.TAB);
 
-                    if (!OriginalTBHidden) {
-                        ProcessCallVoid("powershell.exe", "-command \"&{$p='HKCU:SOFTWARE\\Microsoft\\Windows\\" +
-                        "CurrentVersion\\Explorer\\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=2;" +
-                        "&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}\"");
+                    if (Properties.Settings.Default.InitialTBHide == 2)
+                    {
+                        AutoHideTaskBar(false);
                     }
 
+                    ffmWatchLabel.Visibility = Visibility.Hidden;
                     keyButton.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF333333");
                     changeModeTo = false;
                 }
@@ -125,12 +144,25 @@ namespace ClipTheSurface
             return changeModeTo;
         }
 
-        public void ProcessCallVoid(string FileName, string Arguments)
+        public void AutoHideTaskBar(bool type)
         {
+            int value;
+
+            if (type)
+            {
+                value = 3;
+            }
+            else
+            {
+                value = 2;
+            }
+
             using (Process process = new Process())
             {
-                process.StartInfo.FileName = FileName;
-                process.StartInfo.Arguments = Arguments;
+                process.StartInfo.FileName = "powershell.exe";
+                process.StartInfo.Arguments = "-command \"&{$p='HKCU:SOFTWARE\\Microsoft\\Windows\\" +
+                        "CurrentVersion\\Explorer\\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=" + value.ToString() +
+                        ";&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}\"";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = false;

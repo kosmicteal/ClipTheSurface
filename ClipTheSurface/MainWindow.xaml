@@ -22,8 +22,9 @@
             <Button x:Name="altToogle" Content="Alt" HorizontalAlignment="Right" Margin="0,0,0,0.143" VerticalAlignment="Bottom" Width="132" Height="66" FontSize="22" Click="altToogle_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
 
         </Grid>
-        <Button x:Name="hideApp" Content="" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Width="50" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="hideApp_Click" FontWeight="Bold" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave">
+        
+        <Label x:Name="ffmWatchLabel" Content="" HorizontalAlignment="Right" Margin="0,0,-6,88" VerticalAlignment="Center" Foreground="White" Height="28" Width="63" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontFamily="Segoe UI Semibold" FontSize="14" Visibility="Hidden"/>
+        <Button x:Name="hideApp" Content="" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Width="50" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="hideApp_Click" FontWeight="Bold" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
 
-        </Button>
     </Grid>
 </Window>

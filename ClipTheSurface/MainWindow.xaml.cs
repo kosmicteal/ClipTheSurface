@@ -10,8 +10,9 @@ namespace ClipTheSurface
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Boolean hidden = false;
-        public Boolean ffmode = false;
+        private bool hidden = false;
+        public bool ffmode = false;
+        System.Windows.Threading.DispatcherTimer ffm_watch = new System.Windows.Threading.DispatcherTimer();
 
         public MainWindow()
         {
@@ -68,26 +69,15 @@ namespace ClipTheSurface
             //failsafe to reset all modified key presses
             if (!hidden)
             {
-                //hideApp.HorizontalAlignment = HorizontalAlignment.Left;
                 UIButtons.Visibility = Visibility.Hidden;
                 hideApp.Content = "";
-
-                //var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-                //this.Left = desktopWorkingArea.Right - this.Width + 140;
                 hidden = true;
 
             }
             else
             {
-
-
-                //var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-                //this.Left = desktopWorkingArea.Right - this.Width;
-
-                //hideApp.HorizontalAlignment = HorizontalAlignment.Right;
                 UIButtons.Visibility = Visibility.Visible;
                 hideApp.Content = "";
-
                 hidden = false;
             }
         }
@@ -97,11 +87,33 @@ namespace ClipTheSurface
             var TTOriginal = tabletToogle.Content;
             tabletToogle.Content = "\uF16A";
 
+            //Change to Full Focus Mode
             SystemInteraction si = new SystemInteraction();
-            ffmode = si.fullFocusMode(ffmode, tabletToogle);
+            ffmode = si.fullFocusMode(ffmode, tabletToogle, ffmWatchLabel);
             await Task.Delay(3000);
 
+            //Enable Watch
+            if (ffmode == true)
+            {
+                ffm_watch.Tick += new EventHandler(ffm_watch_event);
+                ffm_watch.Interval = new TimeSpan(0, 0, 1);
+                ffm_watch.Start();
+            }
+            else
+            {
+                ffmWatchLabel.Content = "";
+                ffm_watch.Stop();
+            }
+
+
             tabletToogle.Content = TTOriginal;
+        }
+
+        private void ffm_watch_event(object sender, EventArgs e)
+        {
+            DateTime d;
+            d = DateTime.Now;
+            ffmWatchLabel.Content = d.Hour + ":" + d.Minute;
         }
 
         private void upPrecision_Click(object sender, RoutedEventArgs e)
@@ -134,11 +146,13 @@ namespace ClipTheSurface
         private void hideApp_StylusEnter(object sender, System.Windows.Input.StylusEventArgs e)
         {
             MainContainer.Opacity = 1;
+            ffmWatchLabel.Opacity = 1;
         }
 
         private void hideApp_StylusLeave(object sender, System.Windows.Input.StylusEventArgs e)
         {
             MainContainer.Opacity = 0.3;
+            ffmWatchLabel.Opacity = 0;
         }
     }
 }
