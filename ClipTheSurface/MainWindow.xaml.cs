@@ -113,7 +113,7 @@ namespace ClipTheSurface
         {
             DateTime d;
             d = DateTime.Now;
-            ffmWatchLabel.Content = d.Hour + ":" + d.Minute;
+            ffmWatchLabel.Content = d.Hour + ":" + d.Minute.ToString("D2");
         }
 
         private void upPrecision_Click(object sender, RoutedEventArgs e)
