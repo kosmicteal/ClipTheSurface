@@ -13,7 +13,8 @@
             <Button x:Name="rightPrecision" Content="" HorizontalAlignment="Right" Margin="0,70,0,0" VerticalAlignment="Top" Width="63" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="rightPrecision_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
             <Button x:Name="downPrecision" Content="" HorizontalAlignment="Right" Margin="0,140,35,0" VerticalAlignment="Top" Width="63" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="downPrecision_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
 
-            <Button x:Name="tabletToogle" Content="" HorizontalAlignment="Right" Margin="0,0,0,185" VerticalAlignment="Center" Width="132" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="30" Click="tabletToogle_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
+            <Button x:Name="tabletToogle" Content="" HorizontalAlignment="Right" Margin="0,0,0,185" VerticalAlignment="Center" Width="63" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="30" Click="tabletToogle_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
+            <Button x:Name="screenshotButton" Content="" HorizontalAlignment="Right" Margin="0,0,70,185" VerticalAlignment="Center" Width="63" Height="66" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="screenshotButton_Click" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
 
             <Button x:Name="closeApp" Content="" HorizontalAlignment="Right" Margin="0,130,0,0" VerticalAlignment="Center" Width="50" Height="50" FontFamily="Segoe MDL2 Assets" FontSize="22" Click="closeApp_Click" Background="#FF623E3E" StylusEnter="hideApp_StylusEnter" StylusLeave="hideApp_StylusLeave"/>
 

@@ -154,5 +154,13 @@ namespace ClipTheSurface
             MainContainer.Opacity = 0.3;
             ffmWatchLabel.Opacity = 0;
         }
+
+        private void screenshotButton_Click(object sender, RoutedEventArgs e)
+        {
+            hideApp_Click(null, null);
+
+            SystemInteraction si = new SystemInteraction();
+            si.genericKeystrokes_Click(new[] { VirtualKeyCode.LWIN, VirtualKeyCode.LSHIFT }, VirtualKeyCode.VK_S);
+        }
     }
 }

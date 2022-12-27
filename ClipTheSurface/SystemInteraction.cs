@@ -1,6 +1,7 @@
 ﻿using GregsStack.InputSimulatorStandard;
 using GregsStack.InputSimulatorStandard.Native;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -46,6 +47,14 @@ namespace ClipTheSurface
                 SetForegroundWindow(h);
                 simulator.Keyboard.KeyPress(key);
             }
+        }
+
+        public void genericKeystrokes_Click(IEnumerable<VirtualKeyCode> modKeys, VirtualKeyCode key)
+        {
+            //InputSimulator wrapper to avoid reiterative calls
+            var simulator = new InputSimulator();
+                simulator.Keyboard.ModifiedKeyStroke(modKeys, key);
+
         }
 
         public void SPBToogle()
