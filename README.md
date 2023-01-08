@@ -1,5 +1,5 @@
 # ClipTheSurface
-![](https://img.shields.io/badge/version-1.0.0-blue) ![](https://img.shields.io/badge/target%20app-Clip%20Studio%20Paint-lightgrey) ![](https://img.shields.io/badge/recommended%20platform-Surface-blue) ![](https://img.shields.io/badge/-Surface%20Slim%20Pen%202-blue)
+![](https://img.shields.io/badge/version-1.0.0-blue) ![](https://img.shields.io/badge/target%20app-Clip%20Studio%20Paint-lightgrey) ![](https://img.shields.io/badge/recommended%20platform-Surface-blue) ![](https://img.shields.io/badge/-Surface%20Slim%20Pen%202-blue) ![GitHub all releases](https://img.shields.io/github/downloads/KosmicTeal/ClipTheSurface/total)
 ![alt text](https://github.com/kosmicteal/ClipTheSurface/blob/master/07_CTS.png)
 
 Clip Studio Paint belongs to CELSYS (https://www.clipstudio.net/en/)
